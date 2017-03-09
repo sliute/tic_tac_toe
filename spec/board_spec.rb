@@ -42,6 +42,10 @@ describe Board do
       board.set_field({row: 1, col: 1, val: "X"})
       expect { board.set_field({row: 1, col: 1, val: "0"}) }.to raise_error 'Cannot play an occupied field'
     end
+
+    xit 'cannot "write" outside itself' do
+      
+    end
   end
 
   context '#get_field' do
