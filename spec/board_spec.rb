@@ -43,8 +43,18 @@ describe Board do
       expect { board.set_field({row: 1, col: 1, val: "0"}) }.to raise_error 'Cannot play an occupied field'
     end
 
-    xit 'cannot "write" outside itself' do
-      
+    it 'only accepts moves within the board' do
+      board = Board.new
+      expect { board.set_field({row: 4, col: 2, val: "X"}) }.to raise_error 'Please move within the board'
+    end
+
+    it 'only accepts non-negative integers for coordinates' do
+      board = Board.new
+      message = 'Please use non-negative integers for coordinates'
+      expect { board.set_field({row: -1, col: 2, val: "X"}) }.to raise_error message
+      expect { board.set_field({row: 1, col: -2.45, val: "X"}) }.to raise_error message
+      expect { board.set_field({row: nil, col: 2, val: "X"}) }.to raise_error message
+      expect { board.set_field({row: :symbol, col: 2, val: "X"}) }.to raise_error message
     end
   end
 

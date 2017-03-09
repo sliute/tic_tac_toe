@@ -9,12 +9,15 @@ describe Player do
     end
 
     it 'defaults the name to "Anon" if no name is provided' do
-      player = Player.new({name: "", sign: "X"})
-      expect(player.name).to eq "Anon"
+      player_01 = Player.new({name: "", sign: "X"})
+      player_02 = Player.new({name: nil, sign: "O"})
+      expect(player_01.name).to eq "Anon"
+      expect(player_02.name).to eq "Anon"
     end
 
     it 'raises an error if no sign is provided' do
       expect { Player.new({name: "Abel", sign: ""}) }.to raise_error 'You must provide a single-character sign'
+      expect { Player.new({name: "Babel", sign: nil}) }.to raise_error 'You must provide a single-character sign'
     end
 
     it 'raises an error if sign is longer than 1 character' do

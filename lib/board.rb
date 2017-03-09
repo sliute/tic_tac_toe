@@ -9,8 +9,15 @@ class Board
   end
 
   def set_field(args)
-    raise 'Cannot play an occupied field' if !@grid[args.fetch(:row)][args.fetch(:col)].empty?
-    @grid[args.fetch(:row)][args.fetch(:col)] = args.fetch(:val)
+    row = args.fetch(:row)
+    col = args.fetch(:col)
+    raise 'Please use non-negative integers for coordinates' if row.nil? || col.nil? || row.is_a?(Symbol) || col.is_a?(Symbol) || row < 0 || col < 0
+
+    raise 'Please move within the board' if !(0..(@grid.length - 1)).include?(row.to_i) || !(0..(@grid.length - 1)).include?(col.to_i)
+
+    raise 'Cannot play an occupied field' if !@grid[row.to_i][col.to_i].empty?
+
+    @grid[row.to_i][col.to_i] = args.fetch(:val)
   end
 
   def get_field(args)

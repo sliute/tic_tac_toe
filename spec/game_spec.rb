@@ -33,25 +33,50 @@ describe Game do
     end
   end
 
-  context '#get_coord' do
+  context '#process_move' do
     let(:player_01) { Player.new({sign: '0', name: 'Batman'}) }
     let(:player_02) { Player.new({sign: 'X', name: 'Superman'}) }
     let(:board) { Board.new }
     subject(:game) { described_class.new({board: board, player_01: player_01, player_02: player_02}) }
+    let(:message) { "Please use a number >= 1 to move\n" }
 
-    it 'gets the move number from the player and converts it into grid coordinates' do
-      expect(game.get_coord("5")).to eq [1, 1]
+    it 'gets a valid move number, plays it and switches turn' do
+      game.process_move('7')
+      expect(game.board.grid[2][0]).not_to be_empty
+      expect(game.current_player).to eq player_02
     end
 
-    it 'only accepts moves within the board' do
-      expect { game.get_coord("12") }.to raise_error 'Please move within the board'
+    it 'rejects a move number outside the board' do
+      game.process_move("56")
+      expect(game.error_message).to eq "Please play inside the board\n"
+      expect(game.current_player).to eq player_01
     end
 
-    it 'requires numbers greater or equal to 1 for moves' do
-      expect { game.get_coord("0") }.to raise_error 'Please use a number >= 1 to move'
-      expect { game.get_coord("-2.45") }.to raise_error 'Please use a number >= 1 to move'
-      expect { game.get_coord(nil) }.to raise_error 'Please use a number >= 1 to move'
-      expect { game.get_coord(:symbol) }.to raise_error 'Please use a number >= 1 to move'
+    it 'requires numbers greater or equal to 1 for moves (0)' do
+      game.process_move('0')
+      expect(game.error_message).to eq message
+    end
+
+    it 'requires numbers greater or equal to 1 for moves (-2.45)' do
+      game.process_move('-2.45')
+      expect(game.error_message).to eq message
+    end
+
+    it 'requires numbers greater or equal to 1 for moves (nil)' do
+      game.process_move(nil)
+      expect(game.error_message).to eq message
+    end
+
+    it 'requires numbers greater or equal to 1 for moves (:symbol)' do
+      game.process_move(:symbol)
+      expect(game.error_message).to eq message
+    end
+
+    it 'cannot play an occupied field' do
+      game.process_move('7')
+      game.process_move('7')
+      expect(game.error_message).to eq "Cannot play an occupied field\n"
+      expect(game.current_player).to eq player_02
     end
   end
 
@@ -65,6 +90,17 @@ describe Game do
       game.switch
       expect(game.current_player).to eq player_02
       expect(game.opposing_player).to eq player_01
+    end
+  end
+
+  context '#translate_into_coords' do
+    let(:player_01) { Player.new({sign: '0', name: 'Batman'}) }
+    let(:player_02) { Player.new({sign: 'X', name: 'Superman'}) }
+    let(:board) { Board.new }
+    subject(:game) { described_class.new({board: board, player_01: player_01, player_02: player_02}) }
+
+    it 'gets the move number from the player and converts it into grid coordinates' do
+      expect(game.translate_into_coords(9)).to eq [2, 2]
     end
   end
 end
