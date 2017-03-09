@@ -8,4 +8,12 @@ class Board
     @grid = Array.new(size) { Array.new(size) { EMPTY_FIELD } }
   end
 
+  def set_field(args)
+    @grid[args.fetch(:row)][args.fetch(:col)] = args.fetch(:val)
+  end
+
+  def get_field(args)
+    @grid[args.fetch(:row)][args.fetch(:col)]
+  end
+
 end

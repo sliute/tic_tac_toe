@@ -7,12 +7,16 @@ So I can play Tic Tac Toe,
 I need an empty, square board with a default of 3x3 fields.
 
 As a user,
-So I can play Tic Tac Toe,
-I need to play it with another player.
+So I can begin playing Tic Tac Toe,
+I need to identify myself with a name and a play sign (X, O etc.)
 
 As a user,
 So I can play Tic Tac Toe,
 I need to be able to claim a field if it is empty.
+
+As a user,
+So I can play Tic Tac Toe,
+I need to play it with another player.
 
 As a user,
 So I can play Tic Tac Toe,
