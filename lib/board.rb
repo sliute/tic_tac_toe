@@ -9,6 +9,7 @@ class Board
   end
 
   def set_field(args)
+    raise 'Cannot play an occupied field' if !@grid[args.fetch(:row)][args.fetch(:col)].empty?
     @grid[args.fetch(:row)][args.fetch(:col)] = args.fetch(:val)
   end
 
@@ -16,4 +17,11 @@ class Board
     @grid[args.fetch(:row)][args.fetch(:col)]
   end
 
+  def show
+    output = ''
+    @grid.each do |row|
+      output += row.map { |field| field.empty? ? ' ' : field }.join('|') + "\n" + ('- ' * @grid.length).chop! + "\n"
+    end
+    output.chomp!(('- ' * @grid.length).chop! + "\n")
+  end
 end

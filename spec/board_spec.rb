@@ -36,6 +36,12 @@ describe Board do
       board.set_field({row: 1, col: 1, val: "X"})
       expect(board.grid).to eq [["", "", ""], ["", "X", ""], ["", "", ""]]
     end
+
+    it 'cannot "write" into an occupied field' do
+      board = Board.new
+      board.set_field({row: 1, col: 1, val: "X"})
+      expect { board.set_field({row: 1, col: 1, val: "0"}) }.to raise_error 'Cannot play an occupied field'
+    end
   end
 
   context '#get_field' do
@@ -43,6 +49,14 @@ describe Board do
       board = Board.new
       board.set_field({row: 1, col: 1, val: "X"})
       expect(board.get_field({row: 1, col: 1})).to eq "X"
+    end
+  end
+
+  context '#show' do
+    it 'prints the board to the console' do
+      board = Board.new
+      board.set_field({row: 1, col: 1, val: "X"})
+      expect(board.show).to eq " | | \n- - -\n |X| \n- - -\n | | \n"
     end
   end
 end
