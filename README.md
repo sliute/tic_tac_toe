@@ -1,4 +1,4 @@
-# Tic Tac Toe
+# Tic Tac Toe [![Travis CI](https://travis-ci.org/sliute/tic_tac_toe.svg?branch=master)](https://travis-ci.org/sliute/tic_tac_toe) [![Coverage Status](https://coveralls.io/repos/github/sliute/tic_tac_toe/badge.svg?branch=master)](https://coveralls.io/github/sliute/tic_tac_toe?branch=master) [![Code Climate](https://lima.codeclimate.com/github/sliute/tic_tac_toe/badges/gpa.svg)](https://lima.codeclimate.com/github/sliute/tic_tac_toe)
 
 ## User Stories
 ```
