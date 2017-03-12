@@ -34,6 +34,7 @@ class Game
       @error_message = "Cannot play an occupied field\n"
       puts ask_for_move
     else
+      @error_message = ""
       x, y = translate_into_coords(number.to_i)
       @board.set_field({row: x, col: y, val: @current_player.sign})
       switch

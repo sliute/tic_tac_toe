@@ -67,5 +67,6 @@ game = Game.new({board: board, player_01: player_01, player_02: player_02})
       - each such step uses a dedicated method
 
 ### Issues
-  * Since they have been TDD-driven, all methods are presently public. Many of them could (and should) be made private eventually.
+  * Since they have been TDD-driven, all methods are presently public. Many of them could (and should) be eventually made private.
   * I developed the #play method after its sub-components. Although all unit tests passed, feature tests in PRY indicated the need to re-engineer the #get_coord method into a new, #process_move method and adapt the associated unit tests.
+  * At this point, game rules are spread between `Board` and `Game`. I think they could be factored out into a single new class, `RuleBook`. Game would then pass the board and the player's move to the rulebook and display the output.

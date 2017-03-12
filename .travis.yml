@@ -1,0 +1,6 @@
+rvm: '2.4.0'
+
+before_install:
+- sed -i '2d' Gemfile
+
+script: bundle exec rspec spec
